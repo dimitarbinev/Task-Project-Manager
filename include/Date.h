@@ -3,8 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
 class Date {
 private:
     int day;
@@ -21,9 +19,16 @@ public:
 
     void setDate(int day, int month, int year);
 
-    string toString() const;
+    std::string toString() const;
 
     static Date today();
+    static Date parse(const std::string& text);
+    static bool isLeapYear(int year);
+    static int daysInMonth(int month, int year);
+
+    bool operator<(const Date& other) const;
+    bool operator==(const Date& other) const;
+    bool operator!=(const Date& other) const;
 };
 
 #endif
