@@ -1,24 +1,52 @@
 #ifndef TASK_MANAGER_H
 #define TASK_MANAGER_H
 
-#include "Project.h"
-#include <vector>
+#include "FileManager.h"
 
-using namespace std;
+#include <string>
+#include <vector>
 
 class TaskManager {
 private:
-    vector<Project> projects;
+    std::vector<Project> projects;
+    FileManager fileManager;
+    std::string dataFilePath;
+
+    int findProjectIndexById(int projectId) const;
+    Project& getProjectById(int projectId);
+    const Project& getProjectById(int projectId) const;
 
 public:
-    TaskManager();
+    explicit TaskManager(const std::string& dataFilePath = "data/projects.txt");
 
+    void loadData();
+    void saveData() const;
+
+    // Project management
     void addProject();
     void viewAllProjects() const;
     void editProject();
     void deleteProject();
 
-    Project* findProjectById(int projectId);
+    // Task management
+    void addTaskToProject();
+    void viewTasksInProject() const;
+    void editTaskInProject();
+    void deleteTaskFromProject();
+    void updateTaskStatus();
+
+    // Search, filter and sort
+    void searchTasks() const;
+    void filterTasks() const;
+    void sortTasks() const;
+
+    // Statistics
+    void showProjectStatistics() const;
+
+    // Menus
+    void runProjectManagementMenu();
+    void runTaskManagementMenu();
+    void runTaskQueryMenu() const;
 };
 
 #endif
